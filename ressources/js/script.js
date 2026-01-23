@@ -5,8 +5,12 @@ const hauteur = 20;
 let positionX = 4;
 let positionY = 1;
 
-const numForm = Math.floor(Math.random() * 5);
+//Nombre random entre 0 et 4
+const numRandom = Math.floor(Math.random() * 5);
+
 const numRotation = 0;
+
+const couleurList = ["red", "blue", "green", "yellow", "purple"];
 
 for (let i = 0; i < largeur * hauteur; i++) {
   const cell = document.createElement("div");
@@ -114,14 +118,14 @@ function draw() {
     ) {
       if (form[numForm][numRotation][index][jindex] === 1) {
         const cellIndex = (positionY + index) * largeur + (positionX + jindex);
-        cells[cellIndex].style.backgroundColor = "red";
+        cells[cellIndex].style.backgroundColor = couleurList[numForm];
       }
     }
   }
 }
 function clearGrid() {
   cells.forEach((cell) => {
-    cell.style.backgroundColor = "#111";
+    cell.style.backgroundColor = "#ffffffff";
   });
 }
 clearGrid();
