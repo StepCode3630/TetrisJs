@@ -1,0 +1,22 @@
+{
+  "repoUrl": "https://github.com/Step-EduVaud/TetrisJs",
+  "projectName": "TetrisJs",
+  "branch": "main",
+  "me": "Step-EduVaud",
+  "journalStartDate": null,
+  "exceptions": [
+    {
+      "id": "2dc4b134-b0ca-44cf-b713-3f3ac4de4305",
+      "type": "commitpatch",
+      "sha": "8b4699b505bd5bda0b9745a085609a2de8727f83",
+      "url": "https://github.com/Step-EduVaud/TetrisJs/commit/8b4699b505bd5bda0b9745a085609a2de8727f83",
+      "name": "feat(mise en place des fichiers)",
+      "description": "",
+      "date": "2026-01-16T10:21:00.000Z",
+      "duration": 5,
+      "status": "Done",
+      "author": "Step-EduVaud",
+      "patch": true
+    }
+  ]
+}
