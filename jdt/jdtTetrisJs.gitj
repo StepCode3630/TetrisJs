@@ -14,6 +14,16 @@
       "duration": 60,
       "status": "Done",
       "author": "Step-EduVaud"
+    },
+    {
+      "id": "ffe6bd3f-5c58-471f-9aa7-4796baba5433",
+      "type": "commitless",
+      "name": "chore(compte bloqué)",
+      "description": "",
+      "date": "2026-01-30T07:00:00.000Z",
+      "duration": 15,
+      "status": "Done",
+      "author": "Step-EduVaud"
     }
   ]
 }

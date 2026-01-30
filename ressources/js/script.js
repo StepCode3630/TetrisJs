@@ -131,5 +131,13 @@ function clearGrid() {
     cell.style.backgroundColor = "#ffffffff";
   });
 }
-clearGrid();
-draw();
+
+//Augmente la position verticale ce qui fait descendre
+function moveDown() {
+  positionY++;
+  clearGrid();
+  draw();
+}
+
+//Chaque interval de 0.6sec, appel de la fonction moveDown ce qui fait descendre
+setInterval(moveDown, 600);
