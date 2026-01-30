@@ -11,7 +11,7 @@ let positionY = -1;
 //Nombre random entre 0 et 4
 const numRandom = Math.floor(Math.random() * 5);
 
-const numRotation = 0;
+let numRotation = 0;
 
 const couleurList = ["red", "blue", "green", "yellow", "purple"];
 
@@ -80,6 +80,8 @@ form[3] = [
     [0, 1, 0],
   ],
 ];
+
+//T Forme
 form[4] = [
   [
     [1, 1, 1],
@@ -119,7 +121,9 @@ function draw() {
     ) {
       if (form[numRandom][numRotation][index][jindex] === 1) {
         const cellIndex = (positionY + index) * largeur + (positionX + jindex);
-        cells[cellIndex].style.backgroundColor = couleurList[numRandom];
+        if (cellIndex >= 0 && cellIndex < cells.length) {
+          cells[cellIndex].style.backgroundColor = couleurList[numRandom];
+        }
       }
     }
   }
@@ -153,6 +157,29 @@ function canMove(dx) {
   return true;
 }
 
+function canRotate(futurRrotation) {
+  const carré = form[numRandom][numRotation];
+  //Ligne
+  for (let i = 0; i < carré.length; i++) {
+    //Colonne
+    for (let j = 0; j < carré[i].length; j++) {
+      if (carré[i][j] === 1) {
+        if (positionX + j >= largeur || positionX + j < 0) return false;
+        if (positionY + i >= hauteur || positionY + i < 0) return false;
+      }
+    }
+  }
+  return true;
+}
+
+function rotation() {
+  if (canRotate((numRotation + 1) % form[numRandom].length)) {
+    numRotation = (numRotation + 1) % form[numRandom].length;
+    clearGrid();
+    draw();
+  }
+}
+
 //Chaque interval de 0.6sec, appel de la fonction moveDown ce qui fait descendre
 setInterval(moveDown, 600);
 
@@ -172,5 +199,8 @@ document.addEventListener("keydown", function (event) {
         positionX++;
         break;
       }
+    case "ArrowUp":
+      rotation();
+      break;
   }
 });
