@@ -3,13 +3,13 @@ const largeur = 10;
 const hauteur = 20;
 
 //Nombre random entre 0 et 10
-const numRandomv2 = Math.floor(Math.random() * (8 - 1)) + 1;
+let numRandomv2 = Math.floor(Math.random() * (8 - 1)) + 1;
 
 let positionX = numRandomv2;
 let positionY = -1;
 
 //Nombre random entre 0 et 4
-const numRandom = Math.floor(Math.random() * 5);
+let numRandom = Math.floor(Math.random() * 5);
 
 let numRotation = 0;
 
@@ -107,6 +107,29 @@ form[4] = [
 
 const cells = document.querySelectorAll(".cell");
 
+const restartButton = document.getElementById("restart");
+let gameInterval = null;
+
+function restart() {
+  if (gameInterval) clearInterval(gameInterval);
+  numRotation = 0;
+  numRandom = Math.floor(Math.random() * 5);
+  numRandomv2 = Math.floor(Math.random() * (8 - 1)) + 1;
+  positionX = numRandomv2;
+  positionY = -1;
+  clearGrid();
+  draw();
+  gameInterval = setInterval(moveDown, 600);
+}
+
+restartButton.addEventListener("click", () => {
+  restartButton.disabled = true;
+  restart();
+  setTimeout(() => {
+    restartButton.disabled = false;
+  }, 150);
+});
+
 /// Dessiner la forme
 function draw() {
   for (
@@ -181,7 +204,8 @@ function rotation() {
 }
 
 //Chaque interval de 0.6sec, appel de la fonction moveDown ce qui fait descendre
-setInterval(moveDown, 600);
+// Utiliser `gameInterval` pour pouvoir le contrôler depuis `restart()`
+if (!gameInterval) gameInterval = setInterval(moveDown, 600);
 
 //Gestion des touches
 document.addEventListener("keydown", function (event) {

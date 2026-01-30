@@ -99,3 +99,22 @@ p {
   background-color: #ffffff;
   border: 1px solid #000000;
 }
+
+#restart {
+  width: 150px;
+  height: 40px;
+  font-size: 1rem;
+  background-color: #e0bdff;
+  border: none;
+  border-radius: 10px;
+  box-shadow: 2px 2px 5px #000;
+  cursor: pointer;
+  transition:
+    background-color 0.3s,
+    transform 0.2s;
+}
+
+#restart:hover {
+  background-color: #d299ff;
+  transform: scale(1.05);
+}
