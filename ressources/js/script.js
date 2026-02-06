@@ -109,6 +109,29 @@ form[4] = [
     [0, 1, 0],
   ],
 ];
+//L Forme inversé
+form[5] = [
+  [
+    [1, 0, 0],
+    [1, 1, 0],
+    [0, 0, 0],
+  ],
+  [
+    [0, 1, 1],
+    [0, 1, 0],
+    [0, 0, 0],
+  ],
+  [
+    [0, 0, 0],
+    [0, 1, 1],
+    [0, 0, 1],
+  ],
+  [
+    [0, 0, 0],
+    [0, 1, 0],
+    [1, 1, 0],
+  ],
+];
 
 const cells = document.querySelectorAll(".cell");
 
@@ -137,7 +160,7 @@ restartButton.addEventListener("click", () => {
 
 /// Dessiner la forme
 function draw() {
-  clearGrid;
+  clearGrid();
   for (let i = 0; i < hauteur; i++) {
     for (let j = 0; j < largeur; j++) {
       if (logicGrid[i][j] != 0) {
@@ -167,11 +190,55 @@ function clearGrid() {
   });
 }
 
+function canMoveDown() {
+  const carré = form[numRandom][numRotation];
+  for (let i = 0; i < carré.length; i++) {
+    for (let j = 0; j < carré[i].length; j++) {
+      if (carré[i][j] === 1) {
+        if (positionY + i + 1 >= hauteur) return false;
+        if (
+          positionY + i + 1 >= 0 &&
+          logicGrid[positionY + i + 1][positionX + j] !== 0
+        )
+          return false;
+      }
+    }
+  }
+  return true;
+}
+
 //Augmente la position verticale ce qui fait descendre
 function moveDown() {
-  positionY++;
-  clearGrid();
-  draw();
+  if (canMoveDown()) {
+    positionY++;
+    clearGrid();
+    draw();
+  } else {
+    fixPiece();
+
+    numRandom = Math.floor(Math.random() * 5);
+    numRandomv2 = Math.floor(Math.random() * (8 - 1)) + 1;
+    positionX = numRandomv2;
+    positionY = -1;
+    numRotation = 0;
+    clearGrid();
+    draw();
+  }
+}
+1;
+
+function fixPiece() {
+  const shape = form[numRandom][numRotation]; // matrice de la pièce active
+  for (let row = 0; row < shape.length; row++) {
+    for (let col = 0; col < shape[row].length; col++) {
+      if (shape[row][col] === 1) {
+        const x = positionX + col;
+        const y = positionY + row;
+        if (y >= 0 && y < hauteur && x >= 0 && x < largeur)
+          logicGrid[y][x] = numRandom; // couleur de la pièce
+      }
+    }
+  }
 }
 
 // Gestion des colisions sur l'axe horizentale
@@ -234,6 +301,9 @@ document.addEventListener("keydown", function (event) {
       }
     case "ArrowUp":
       rotation();
+      break;
+    case "ArrowDown":
+      positionY++;
       break;
   }
 });

@@ -24,6 +24,19 @@
       "duration": 15,
       "status": "Done",
       "author": "Step-EduVaud"
+    },
+    {
+      "id": "887c6aff-d84f-4562-adc6-6c751132f56e",
+      "type": "commitpatch",
+      "sha": "7d2725e7071c82007a53a3b376a61aca0dcd2be4",
+      "url": "https://github.com/Step-EduVaud/TetrisJs/commit/7d2725e7071c82007a53a3b376a61aca0dcd2be4",
+      "name": "feat (ajout d'un aside avec les touches affichés): Terminé",
+      "description": "",
+      "date": "2026-02-06T07:32:00.000Z",
+      "duration": 30,
+      "status": "Done",
+      "author": "Step-EduVaud",
+      "patch": true
     }
   ]
 }
