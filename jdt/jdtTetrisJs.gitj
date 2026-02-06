@@ -37,6 +37,19 @@
       "status": "Done",
       "author": "Step-EduVaud",
       "patch": true
+    },
+    {
+      "id": "7d53dcc0-167c-4d57-b80d-8756d092c7d1",
+      "type": "commitpatch",
+      "sha": "57405813f9a446e2ea643db69ca6fe0244a29809",
+      "url": "https://github.com/Step-EduVaud/TetrisJs/commit/57405813f9a446e2ea643db69ca6fe0244a29809",
+      "name": "feat(Ajout de collisions); A terminé",
+      "description": "Gestion de colilsions lorsque les formes touchent le bas ou les autres formes",
+      "date": "2026-02-06T10:22:00.000Z",
+      "duration": 65,
+      "status": "WIP",
+      "author": "Step-EduVaud",
+      "patch": true
     }
   ]
 }
