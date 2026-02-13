@@ -303,7 +303,7 @@ function checkLines() {
 
       //Score
       const score = document.getElementById("score");
-      score.textContent = parseInt(score.textContent) + 100;
+      score.textContent = parseInt(score.textContent) + 100 * lignesSupprimees;
     }
   }
 }
