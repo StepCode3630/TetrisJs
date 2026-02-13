@@ -167,7 +167,12 @@ restartButton.addEventListener("click", () => {
 
 /// Dessiner la forme
 function draw() {
+  checkLines();
+  canMoveDown();
+  canMoveDown();
+  canRotate();
   clearGrid();
+
   for (let i = 0; i < hauteur; i++) {
     for (let j = 0; j < largeur; j++) {
       if (logicGrid[i][j] != 0) {
@@ -303,7 +308,7 @@ function checkLines() {
 
       //Score
       const score = document.getElementById("score");
-      score.textContent = parseInt(score.textContent) + 100 * lignesSupprimees;
+      score.textContent += parseInt(score.textContent) + 100 * lignesSupprimees;
     }
   }
 }
@@ -335,7 +340,6 @@ document.addEventListener("keydown", function (event) {
     case "ArrowDown":
       if (canMoveDown(1)) {
         positionY++;
-        checkLines();
         clearGrid();
         draw();
       }
@@ -346,6 +350,13 @@ document.addEventListener("keydown", function (event) {
       setTimeout(() => {
         restartButton.disabled = false;
       }, 150);
+      break;
+    case "Enter":
+      positionX = numRandomv2;
+      positionY = -1;
+      numRotation = 0;
+      numRandom = Math.floor(Math.random() * 5);
+      numRandomv2 = Math.floor(Math.random() * (8 - 1)) + 1;
       break;
   }
 });
