@@ -129,7 +129,7 @@ form[5] = [
 ];
 
 //Nombre random entre 0 et 10
-let numRandomv2 = Math.floor(Math.random() * (largeur - 2 - 1)) + 1;
+let numRandomv2 = Math.floor(Math.random() * (largeur - 2)) + 1;
 
 let positionX = numRandomv2;
 let positionY = -1;
@@ -150,6 +150,7 @@ function restart() {
   positionX = numRandomv2;
   positionY = -1;
   logicGrid = new Array(hauteur);
+  score.textContent = "0";
 
   for (let i = 0; i < hauteur; i++) {
     logicGrid[i] = new Array(largeur).fill(0);
@@ -230,9 +231,10 @@ function moveDown() {
     draw();
   } else {
     fixPiece();
+    gameOver();
 
     numRandom = Math.floor(Math.random() * 5);
-    numRandomv2 = Math.floor(Math.random() * (8 - 1)) + 1;
+    numRandomv2 = Math.floor(Math.random() * (largeur - 2)) + 1;
     positionX = numRandomv2;
     positionY = -1;
     numRotation = 0;
@@ -312,6 +314,24 @@ function checkLines() {
       //Score
       const score = document.getElementById("score");
       score.textContent = parseInt(score.textContent) + 100 * lignesSupprimees;
+    }
+  }
+}
+
+function gameOver() {
+  const shape = form[numRandom][numRotation];
+  for (let row = 0; row < shape.length; row++) {
+    for (let col = 0; col < shape[row].length; col++) {
+      if (shape[row][col] === 1) {
+        const x = positionX + col;
+        const y = positionY + row;
+        if (y < 0) {
+          // Game over condition
+          clearInterval(gameInterval);
+          gameInterval = null;
+          alert("Game Over!");
+        }
+      }
     }
   }
 }
