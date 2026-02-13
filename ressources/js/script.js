@@ -286,9 +286,23 @@ function rotation() {
     draw();
   }
 }
+checkLines();
 
 //Chaque interval de 0.6sec, appel de la fonction moveDown ce qui fait descendre
 if (!gameInterval) gameInterval = setInterval(moveDown, 600);
+
+function checkLines() {
+  for (let i = 0; i < hauteur; i++) {
+    if (logicGrid[i].every((cell) => cell !== 0)) {
+      logicGrid.splice(i, 1);
+      logicGrid.unshift(new Array(largeur).fill(0));
+
+      //Scpre
+      const score = document.getElementById("score");
+      score.textContent = parseInt(score.textContent) + 100;
+    }
+  }
+}
 
 //Gestion des touches
 document.addEventListener("keydown", function (event) {
@@ -296,6 +310,7 @@ document.addEventListener("keydown", function (event) {
     case "ArrowLeft":
       if (canMove(-1)) {
         clearGrid();
+        draw();
         positionX--;
         break;
       }
@@ -303,6 +318,7 @@ document.addEventListener("keydown", function (event) {
     case "ArrowRight":
       if (canMove(1)) {
         clearGrid();
+        draw();
         positionX++;
         break;
       }
@@ -311,6 +327,15 @@ document.addEventListener("keydown", function (event) {
       break;
     case "ArrowDown":
       positionY++;
+      clearGrid();
+      draw();
+      break;
+
+    case "Escape":
+      restart();
+      setTimeout(() => {
+        restartButton.disabled = false;
+      }, 150);
       break;
   }
 });
