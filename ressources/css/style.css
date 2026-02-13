@@ -35,6 +35,14 @@ aside {
   border-radius: 10px;
   background-color: rgba(255, 255, 255, 0.5);
   border: #000000 2px solid;
+  gap: 20px;
+}
+
+aside tr {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 40px;
 }
 
 h1 {
