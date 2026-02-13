@@ -139,7 +139,7 @@ let numRandom = Math.floor(Math.random() * form.length);
 
 const cells = document.querySelectorAll(".cell");
 
-const restartButton = document.getElementById("restart");
+const restartButton = document.querySelector(".restart");
 let gameInterval = null;
 
 function restart() {
@@ -159,6 +159,14 @@ function restart() {
   clearGrid();
   draw();
   gameInterval = setInterval(moveDown, 600);
+  overlay.classList.remove("show");
+  overlay.addEventListener(
+    "transitionend",
+    () => {
+      overlay.classList.add("hidden");
+    },
+    { once: true },
+  );
 }
 
 restartButton.addEventListener("click", () => {
@@ -329,7 +337,8 @@ function gameOver() {
           // Game over condition
           clearInterval(gameInterval);
           gameInterval = null;
-          alert("Game Over!");
+          const overlay = document.getElementById("gameOver");
+          overlay.classList.add("show");
         }
       }
     }
