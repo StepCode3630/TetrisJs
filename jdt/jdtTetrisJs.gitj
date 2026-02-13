@@ -1,8 +1,8 @@
 {
-  "repoUrl": "https://github.com/Step-EduVaud/TetrisJs",
+  "repoUrl": "https://github.com/StepCode3630/TetrisJs",
   "projectName": "TetrisJS",
   "branch": "main",
-  "me": "Step-EduVaud",
+  "me": "StepCode3630",
   "journalStartDate": "2026-01-16T07:00:00.000Z",
   "exceptions": [
     {
@@ -13,7 +13,7 @@
       "date": "2026-01-16T07:00:00.000Z",
       "duration": 60,
       "status": "Done",
-      "author": "Step-EduVaud"
+      "author": "StepCode3630"
     },
     {
       "id": "ffe6bd3f-5c58-471f-9aa7-4796baba5433",
@@ -23,32 +23,32 @@
       "date": "2026-01-30T07:00:00.000Z",
       "duration": 15,
       "status": "Done",
-      "author": "Step-EduVaud"
+      "author": "StepCode3630"
     },
     {
       "id": "887c6aff-d84f-4562-adc6-6c751132f56e",
       "type": "commitpatch",
       "sha": "7d2725e7071c82007a53a3b376a61aca0dcd2be4",
-      "url": "https://github.com/Step-EduVaud/TetrisJs/commit/7d2725e7071c82007a53a3b376a61aca0dcd2be4",
+      "url": "https://github.com/StepCode3630/TetrisJs/commit/7d2725e7071c82007a53a3b376a61aca0dcd2be4",
       "name": "feat (ajout d'un aside avec les touches affichés): Terminé",
       "description": "",
       "date": "2026-02-06T07:32:00.000Z",
       "duration": 30,
       "status": "Done",
-      "author": "Step-EduVaud",
+      "author": "StepCode3630",
       "patch": true
     },
     {
       "id": "7d53dcc0-167c-4d57-b80d-8756d092c7d1",
       "type": "commitpatch",
       "sha": "57405813f9a446e2ea643db69ca6fe0244a29809",
-      "url": "https://github.com/Step-EduVaud/TetrisJs/commit/57405813f9a446e2ea643db69ca6fe0244a29809",
+      "url": "https://github.com/StepCode3630/TetrisJs/commit/57405813f9a446e2ea643db69ca6fe0244a29809",
       "name": "feat(Ajout de collisions); A terminé",
       "description": "Gestion de colilsions lorsque les formes touchent le bas ou les autres formes",
       "date": "2026-02-06T10:22:00.000Z",
       "duration": 65,
       "status": "WIP",
-      "author": "Step-EduVaud",
+      "author": "StepCode3630",
       "patch": true
     }
   ]
