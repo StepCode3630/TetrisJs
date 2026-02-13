@@ -282,26 +282,22 @@ function canRotate(futurRrotation) {
 function rotation() {
   if (canRotate((numRotation + 1) % form[numRandom].length)) {
     numRotation = (numRotation + 1) % form[numRandom].length;
+    clearGrid();
+    draw();
   }
 }
+checkLines();
 
 //Chaque interval de 0.6sec, appel de la fonction moveDown ce qui fait descendre
 if (!gameInterval) gameInterval = setInterval(moveDown, 600);
 
 function checkLines() {
-  let lignesSupprimees = 0;
-
-  for (let i = hauteur - 1; i >= 0; i--) {
+  for (let i = 0; i < hauteur; i++) {
     if (logicGrid[i].every((cell) => cell !== 0)) {
-      lignesSupprimees++;
-
       logicGrid.splice(i, 1);
-
       logicGrid.unshift(new Array(largeur).fill(0));
 
-      i++;
-
-      //Score
+      //Scpre
       const score = document.getElementById("score");
       score.textContent = parseInt(score.textContent) + 100 * lignesSupprimees;
     }
@@ -328,17 +324,11 @@ document.addEventListener("keydown", function (event) {
       }
     case "ArrowUp":
       rotation();
+      break;
+    case "ArrowDown":
+      positionY++;
       clearGrid();
       draw();
-      break;
-
-    case "ArrowDown":
-      if (canMoveDown(1)) {
-        positionY++;
-        checkLines();
-        clearGrid();
-        draw();
-      }
       break;
 
     case "Escape":
