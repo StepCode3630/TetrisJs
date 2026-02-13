@@ -1,15 +1,10 @@
+console.log("TetrisJS by Stepan");
+
 const grid = document.getElementById("grid");
 const largeur = 10;
 const hauteur = 20;
 
-//Nombre random entre 0 et 10
-let numRandomv2 = Math.floor(Math.random() * (8 - 1)) + 1;
-
-let positionX = numRandomv2;
-let positionY = -1;
-
-//Nombre random entre 0 et 4
-let numRandom = Math.floor(Math.random() * 5);
+let form = new Array();
 
 let numRotation = 0;
 
@@ -27,7 +22,6 @@ for (let i = 0; i < hauteur; i++) {
   logicGrid[i] = new Array(largeur).fill(0);
 }
 
-let form = new Array();
 //Carré
 form[0] = [
   [
@@ -133,6 +127,15 @@ form[5] = [
     [1, 1, 0],
   ],
 ];
+
+//Nombre random entre 0 et 10
+let numRandomv2 = Math.floor(Math.random() * (largeur - 2 - 1)) + 1;
+
+let positionX = numRandomv2;
+let positionY = -1;
+
+//Nombre random entre 0 et le nombre de formes disponibles
+let numRandom = Math.floor(Math.random() * form.length);
 
 const cells = document.querySelectorAll(".cell");
 
@@ -308,7 +311,7 @@ function checkLines() {
 
       //Score
       const score = document.getElementById("score");
-      score.textContent += parseInt(score.textContent) + 100 * lignesSupprimees;
+      score.textContent = parseInt(score.textContent) + 100 * lignesSupprimees;
     }
   }
 }
