@@ -22,6 +22,7 @@ for (let i = 0; i < largeur * hauteur; i++) {
 }
 
 let logicGrid = new Array(hauteur);
+
 for (let i = 0; i < hauteur; i++) {
   logicGrid[i] = new Array(largeur).fill(0);
 }
@@ -145,6 +146,12 @@ function restart() {
   numRandomv2 = Math.floor(Math.random() * (8 - 1)) + 1;
   positionX = numRandomv2;
   positionY = -1;
+  logicGrid = new Array(hauteur);
+
+  for (let i = 0; i < hauteur; i++) {
+    logicGrid[i] = new Array(largeur).fill(0);
+  }
+
   clearGrid();
   draw();
   gameInterval = setInterval(moveDown, 600);
