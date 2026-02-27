@@ -4,7 +4,9 @@ const grid = document.getElementById("grid");
 const largeur = 10;
 const hauteur = 20;
 
-let form = new Array();
+const form = [];
+
+let score = 0;
 
 let numRotation = 0;
 
@@ -134,6 +136,7 @@ let numRandom = Math.floor(Math.random() * form.length);
 const cells = document.querySelectorAll(".cell");
 
 const restartButton = document.querySelector(".restart");
+restartButton.addEventListener("click", restart);
 let gameInterval = null;
 
 const shape = form[numRandom][numRotation];
@@ -143,7 +146,7 @@ const pieceWidth = shape[0].length;
 let numRandomv2 = Math.floor(Math.random() * (largeur - pieceWidth + 1));
 
 let positionX = numRandomv2;
-let positionY = 0;
+let positionY = -1;
 
 function restart() {
   if (gameInterval) clearInterval(gameInterval);
@@ -159,25 +162,20 @@ function restart() {
     logicGrid[i] = new Array(largeur).fill(0);
   }
 
-  clearGrid();
-  draw();
+  render;
   gameInterval = setInterval(moveDown, 600);
 }
 
-restartButton.addEventListener("click", () => {
-  restartButton.disabled = true;
-  restart();
-  setTimeout(() => {
-    restartButton.disabled = false;
-  }, 150);
-});
+// restartButton.addEventListener("click", () => {
+//   restartButton.disabled = true;
+//   restart();
+//   setTimeout(() => {
+//     restartButton.disabled = false;
+//   }, 150);
+// });
 
 /// Dessiner la forme
 function draw() {
-  checkLines();
-  canMoveDown();
-  canMoveDown();
-  canRotate();
   clearGrid();
 
   for (let i = 0; i < hauteur; i++) {
@@ -204,25 +202,37 @@ function draw() {
   }
 }
 function clearGrid() {
-  cells.forEach((cell) => {
-    cell.style.backgroundColor = "#ffffffff";
-  });
+  for (let i = 0; i < cells.length; i++) {
+    cells[i].style.backgroundColor = "#fff";
+  }
 }
 
 function canMoveDown() {
   const carré = form[numRandom][numRotation];
+
   for (let i = 0; i < carré.length; i++) {
     for (let j = 0; j < carré[i].length; j++) {
       if (carré[i][j] === 1) {
-        if (positionY + i + 1 >= hauteur) return false;
+        const newY = positionY + i + 1;
+        const x = positionX + j;
+
+        // Collision bas
+        if (newY >= hauteur) return false;
+
+        // Collision avec autre pièce
         if (
-          positionY + i + 1 >= 0 &&
-          logicGrid[positionY + i + 1][positionX + j] !== 0
-        )
+          newY >= 0 &&
+          newY < hauteur &&
+          x >= 0 &&
+          x < largeur &&
+          logicGrid[newY][x] !== 0
+        ) {
           return false;
+        }
       }
     }
   }
+
   return true;
 }
 
@@ -230,28 +240,32 @@ function canMoveDown() {
 function moveDown() {
   if (canMoveDown()) {
     positionY++;
-    clearGrid();
-    draw();
+    render();
   } else {
     fixPiece();
     gameOver();
+    checkLines();
 
-    numRandom = Math.floor(Math.random() * 5);
+    numRandom = Math.floor(Math.random() * form.length);
     numRandomv2 = Math.floor(Math.random() * (largeur - pieceWidth + 1));
     positionX = numRandomv2;
     positionY = -1;
     numRotation = 0;
-    clearGrid();
-    draw();
+    render();
+  }
+  if (!canMoveDown()) {
+    if (positionY < 0) {
+      triggerGameOver();
+    }
   }
 }
 1;
 
 function fixPiece() {
-  const shape = form[numRandom][numRotation]; // matrice de la pièce active
-  for (let row = 0; row < shape.length; row++) {
-    for (let col = 0; col < shape[row].length; col++) {
-      if (shape[row][col] === 1) {
+  const carré = form[numRandom][numRotation];
+  for (let row = 0; row < carré.length; row++) {
+    for (let col = 0; col < carré[row].length; col++) {
+      if (carré[row][col] === 1) {
         const x = positionX + col;
         const y = positionY + row;
         if (y >= 0 && y < hauteur && x >= 0 && x < largeur)
@@ -264,20 +278,26 @@ function fixPiece() {
 // Gestion des colisions sur l'axe horizentale
 function canMove(dx) {
   const carré = form[numRandom][numRotation];
-  //Ligne
+
   for (let i = 0; i < carré.length; i++) {
-    //Colonne
     for (let j = 0; j < carré[i].length; j++) {
       if (carré[i][j] === 1) {
-        if (positionX + j + dx >= largeur || positionX + j + dx < 0)
+        const newX = positionX + j + dx;
+        const y = positionY + i;
+
+        if (newX < 0 || newX >= largeur) return false;
+
+        if (y >= 0 && y < hauteur && logicGrid[y][newX] !== 0) {
           return false;
+        }
       }
     }
   }
+
   return true;
 }
 
-function canRotate(futurRrotation) {
+function canRotate() {
   const carré = form[numRandom][numRotation];
   //Ligne
   for (let i = 0; i < carré.length; i++) {
@@ -286,6 +306,7 @@ function canRotate(futurRrotation) {
       if (carré[i][j] === 1) {
         if (positionX + j >= largeur || positionX + j < 0) return false;
         if (positionY + i >= hauteur || positionY + i < 0) return false;
+        if (logicGrid[positionY + i][positionX + j] !== 0) return false;
       }
     }
   }
@@ -306,37 +327,46 @@ function checkLines() {
 
   for (let i = hauteur - 1; i >= 0; i--) {
     if (logicGrid[i].every((cell) => cell !== 0)) {
-      lignesSupprimees++;
-
       logicGrid.splice(i, 1);
-
       logicGrid.unshift(new Array(largeur).fill(0));
 
+      lignesSupprimees++;
       i++;
-
-      //Score
-      const score = document.getElementById("score");
-      score.textContent = parseInt(score.textContent) + 100 * lignesSupprimees;
     }
+  }
+
+  if (lignesSupprimees > 0) {
+    score += 100 * lignesSupprimees;
+    document.getElementById("score").textContent = score;
   }
 }
 
 function gameOver() {
   const shape = form[numRandom][numRotation];
+
   for (let row = 0; row < shape.length; row++) {
     for (let col = 0; col < shape[row].length; col++) {
       if (shape[row][col] === 1) {
         const x = positionX + col;
         const y = positionY + row;
+
         if (y < 0) {
-          // Game over condition
           clearInterval(gameInterval);
           gameInterval = null;
-          alert("Game Over");
+
+          document.getElementById("gameOver")?.classList.add("show");
+          return true;
         }
       }
     }
   }
+
+  return false;
+}
+
+function render() {
+  clearGrid();
+  draw();
 }
 
 //Gestion des touches
@@ -344,38 +374,34 @@ document.addEventListener("keydown", function (event) {
   switch (event.key) {
     case "ArrowLeft":
       if (canMove(-1)) {
-        clearGrid();
-        draw();
         positionX--;
-        break;
       }
+      render;
+      break;
 
     case "ArrowRight":
       if (canMove(1)) {
-        clearGrid();
-        draw();
         positionX++;
-        break;
       }
+      render;
+      break;
     case "ArrowUp":
       rotation();
-      clearGrid();
-      draw();
+      render();
       break;
 
     case "ArrowDown":
       if (canMoveDown(1)) {
         positionY++;
-        clearGrid();
-        draw();
       }
+      render;
       break;
 
     case "Escape":
       restart();
-      setTimeout(() => {
-        restartButton.disabled = true;
-      }, 150);
+      // setTimeout(() => {
+      //   restartButton.disabled = true;
+      // }, 150);
       break;
     case "Enter":
       positionX = numRandomv2;

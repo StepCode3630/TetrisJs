@@ -127,7 +127,7 @@ p {
   height: 30px;
   background-color: #ffffff;
   border: 1px solid #000000;
-  transition: background-color 0.15s linear;
+  transition: background-color 0.1s linear;
 }
 
 .restart {
