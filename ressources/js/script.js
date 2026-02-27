@@ -256,11 +256,6 @@ function moveDown() {
     numRotation = 0;
     render();
   }
-  if (!canMoveDown()) {
-    if (positionY < 0) {
-      triggerGameOver();
-    }
-  }
 }
 1;
 
@@ -364,8 +359,8 @@ function gameOver() {
           clearInterval(gameInterval);
           gameInterval = null;
 
-          document.getElementById("gameOver")?.classList.add("show");
-          return true;
+          alert("Game over");
+          restart();
         }
       }
     }
