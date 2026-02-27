@@ -128,12 +128,6 @@ form[5] = [
   ],
 ];
 
-//Nombre random entre 0 et 10
-let numRandomv2 = Math.floor(Math.random() * (largeur - 2)) + 1;
-
-let positionX = numRandomv2;
-let positionY = 0;
-
 //Nombre random entre 0 et le nombre de formes disponibles
 let numRandom = Math.floor(Math.random() * form.length);
 
@@ -142,11 +136,20 @@ const cells = document.querySelectorAll(".cell");
 const restartButton = document.querySelector(".restart");
 let gameInterval = null;
 
+const shape = form[numRandom][numRotation];
+const pieceWidth = shape[0].length;
+
+//Nombre random entre 1 inclus et largeur - piece largeur + 1
+let numRandomv2 = Math.floor(Math.random() * (largeur - pieceWidth + 1));
+
+let positionX = numRandomv2;
+let positionY = 0;
+
 function restart() {
   if (gameInterval) clearInterval(gameInterval);
   numRotation = 0;
   numRandom = Math.floor(Math.random() * 5);
-  numRandomv2 = Math.floor(Math.random() * (8 - 1)) + 1;
+  numRandomv2 = Math.floor(Math.random() * (largeur - pieceWidth + 1));
   positionX = numRandomv2;
   positionY = -1;
   logicGrid = new Array(hauteur);
@@ -234,7 +237,7 @@ function moveDown() {
     gameOver();
 
     numRandom = Math.floor(Math.random() * 5);
-    numRandomv2 = Math.floor(Math.random() * (largeur - 2)) + 1;
+    numRandomv2 = Math.floor(Math.random() * (largeur - pieceWidth + 1));
     positionX = numRandomv2;
     positionY = -1;
     numRotation = 0;
@@ -379,7 +382,7 @@ document.addEventListener("keydown", function (event) {
       positionY = -1;
       numRotation = 0;
       numRandom = Math.floor(Math.random() * 5);
-      numRandomv2 = Math.floor(Math.random() * (8 - 1)) + 1;
+      numRandomv2 = Math.floor(Math.random() * (largeur - pieceWidth + 1));
       break;
   }
 });
