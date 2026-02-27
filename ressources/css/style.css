@@ -144,7 +144,7 @@ p {
     transform 0.2s;
 }
 
-#restart:hover {
+.restart:hover {
   background-color: #d299ff;
   transform: scale(1.05);
 }

@@ -132,7 +132,7 @@ form[5] = [
 let numRandomv2 = Math.floor(Math.random() * (largeur - 2)) + 1;
 
 let positionX = numRandomv2;
-let positionY = -1;
+let positionY = 0;
 
 //Nombre random entre 0 et le nombre de formes disponibles
 let numRandom = Math.floor(Math.random() * form.length);
