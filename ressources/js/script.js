@@ -268,6 +268,8 @@ function fixPiece() {
         const y = positionY + row;
         if (y >= 0 && y < hauteur && x >= 0 && x < largeur)
           logicGrid[y][x] = numRandom; // couleur de la pièce
+        const cellIndex = y * largeur + x;
+        cells[cellIndex].classList.add("fix-animation");
       }
     }
   }
@@ -287,6 +289,8 @@ function canMove(dx) {
 
         if (y >= 0 && y < hauteur && logicGrid[y][newX] !== 0) {
           return false;
+          grid.classList.add("shake");
+          setTimeout(() => grid.classList.remove("shake"), 200);
         }
       }
     }
@@ -325,6 +329,9 @@ function checkLines() {
 
   for (let i = hauteur - 1; i >= 0; i--) {
     if (logicGrid[i].every((cell) => cell !== 0)) {
+      const rowCells = document.querySelectorAll(
+        `.cell:nth-child(n + ${i * largeur + 1}):nth-child(-n + ${(i + 1) * largeur})`,
+      );
       logicGrid.splice(i, 1);
       logicGrid.unshift(new Array(largeur).fill(0));
 
@@ -337,13 +344,9 @@ function checkLines() {
     score += 100 * lignesSupprimees;
     document.getElementById("score").textContent = score;
   }
-  // const rowElement = document
-  //   .querySelectorAll(".cell")
-  //   .slice(i * largeur, (i + 1) * largeur);
-
-  // rowElement.forEach((cell) => {
-  //   cell.classList.add("clear-line");
-  // });
+  if (score % 1000 === 0) {
+    grid.style.filter = "hue-rotate(90deg)";
+  }
 }
 
 function gameOver() {
