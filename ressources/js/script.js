@@ -196,6 +196,7 @@ function draw() {
         if (x >= 0 && x < largeur && y >= 0 && y < hauteur) {
           const cellIndex = y * largeur + x;
           cells[cellIndex].style.backgroundColor = couleurList[numRandom - 1];
+          cells[cellIndex].style.boxShadow = "0 0 10px white";
         }
       }
     }
@@ -241,6 +242,8 @@ function moveDown() {
   if (canMoveDown()) {
     positionY++;
     render();
+    grid.style.transform = "translateY(2px)";
+    setTimeout(() => (grid.style.transform = "translate>(0px)"), 50);
   } else {
     fixPiece();
     gameOver();
@@ -339,6 +342,13 @@ function checkLines() {
     score += 100 * lignesSupprimees;
     document.getElementById("score").textContent = score;
   }
+  // const rowElement = document
+  //   .querySelectorAll(".cell")
+  //   .slice(i * largeur, (i + 1) * largeur);
+
+  // rowElement.forEach((cell) => {
+  //   cell.classList.add("clear-line");
+  // });
 }
 
 function gameOver() {

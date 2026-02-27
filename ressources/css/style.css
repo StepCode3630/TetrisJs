@@ -127,7 +127,9 @@ p {
   height: 30px;
   background-color: #ffffff;
   border: 1px solid #000000;
-  transition: background-color 0.1s linear;
+  transition:
+    transform 0.1s ease,
+    background-color 0.2s ease;
 }
 
 .restart {
@@ -174,4 +176,19 @@ p {
 
 #gameOver.hidden {
   display: none;
+}
+
+.clear-line {
+  animation: clearAnimation 0.3s ease forwards;
+}
+
+@keyframes clearAnimation {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0.5);
+  }
 }
