@@ -159,14 +159,6 @@ function restart() {
   clearGrid();
   draw();
   gameInterval = setInterval(moveDown, 600);
-  overlay.classList.remove("show");
-  overlay.addEventListener(
-    "transitionend",
-    () => {
-      overlay.classList.add("hidden");
-    },
-    { once: true },
-  );
 }
 
 restartButton.addEventListener("click", () => {
@@ -337,8 +329,7 @@ function gameOver() {
           // Game over condition
           clearInterval(gameInterval);
           gameInterval = null;
-          const overlay = document.getElementById("gameOver");
-          overlay.classList.add("show");
+          alert("Game Over");
         }
       }
     }
@@ -380,7 +371,7 @@ document.addEventListener("keydown", function (event) {
     case "Escape":
       restart();
       setTimeout(() => {
-        restartButton.disabled = false;
+        restartButton.disabled = true;
       }, 150);
       break;
     case "Enter":
