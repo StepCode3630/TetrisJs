@@ -129,7 +129,6 @@ p {
   box-shadow:
     1 1 10px rgba(255, 0, 255, 0.4),
     1 1 30px rgba(0, 255, 255, 0.2);
-  border: #000000 3px solid;
 }
 
 .cell {
