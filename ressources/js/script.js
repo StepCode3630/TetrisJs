@@ -143,7 +143,7 @@ const shape = form[numRandom][numRotation];
 const pieceWidth = shape[0].length;
 
 //Nombre random entre 1 inclus et largeur - piece largeur + 1
-let numRandomv2 = Math.floor(Math.random() * (largeur - pieceWidth + 1));
+let numRandomv2 = Math.floor(Math.random() * (largeur - pieceWidth));
 
 let positionX = numRandomv2;
 let positionY = -1;
