@@ -10,7 +10,7 @@ let score = 0;
 
 let numRotation = 0;
 
-const couleurList = ["red", "blue", "green", "yellow", "purple"];
+const couleurList = ["red", "blue", "green", "yellow", "purple", "cyan"];
 
 for (let i = 0; i < largeur * hauteur; i++) {
   const cell = document.createElement("div");
@@ -34,8 +34,8 @@ form[0] = [
 //Ligne
 form[1] = [
   [
-    [1, 1, 1, 1],
     [0, 0, 0, 0],
+    [1, 1, 1, 1],
     [0, 0, 0, 0],
     [0, 0, 0, 0],
   ],
@@ -184,8 +184,8 @@ let gameInterval = null;
 const shape = form[numRandom][numRotation];
 const pieceWidth = shape[0].length;
 
-//Nombre random entre 1 inclus et largeur - piece largeur + 1
-let numRandomv2 = Math.floor(Math.random() * (largeur - pieceWidth));
+//Nombre random entre 1 inclus et largeur - piece largeur
+let numRandomv2 = Math.floor(Math.random() * (largeur - pieceWidth + 2));
 
 let positionX = numRandomv2;
 let positionY = -1;
@@ -205,7 +205,10 @@ function restart() {
   }
 
   render;
-  gameInterval = setInterval(moveDown, 600);
+  gameInterval = setInterval(
+    moveDown,
+    600 * 0.9 ** (Math.floor(score / 10) + 4),
+  );
 }
 
 // restartButton.addEventListener("click", () => {
@@ -238,7 +241,7 @@ function draw() {
         if (x >= 0 && x < largeur && y >= 0 && y < hauteur) {
           const cellIndex = y * largeur + x;
           cells[cellIndex].style.backgroundColor = couleurList[numRandom - 1];
-          cells[cellIndex].style.boxShadow = "0 0 10px white";
+          // cells[cellIndex].style.boxShadow = "0 0 10px white";
         }
       }
     }
@@ -246,7 +249,7 @@ function draw() {
 }
 function clearGrid() {
   for (let i = 0; i < cells.length; i++) {
-    cells[i].style.backgroundColor = "#fff";
+    cells[i].style.backgroundColor = "";
   }
 }
 
@@ -383,7 +386,7 @@ function checkLines() {
   }
 
   if (lignesSupprimees > 0) {
-    score += 100 * lignesSupprimees;
+    score += 1 * lignesSupprimees;
     document.getElementById("score").textContent = score;
   }
   if (score % 1000 === 0) {
