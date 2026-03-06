@@ -68,7 +68,7 @@ tetris-js
 │
 ├── jdt
 ├── index.html
-├── ressources
+└── ressources
     ├── style.css
     ├── script.js
     └── img/
