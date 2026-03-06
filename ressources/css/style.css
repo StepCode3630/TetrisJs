@@ -11,8 +11,8 @@ body {
   background-position: center;
 }
 
-@media (max-width: 900px) {
-  body {
+@media (width: 900px) {
+  jeu {
     flex-direction: column;
     gap: 10px;
   }
@@ -30,6 +30,7 @@ main {
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: row;
   gap: 50px;
 }
 aside {
@@ -124,20 +125,30 @@ p {
   display: grid;
   grid-template-columns: repeat(10, 30px);
   grid-template-rows: repeat(20, 30px);
+  background-color: #000000;
   box-shadow:
     1 1 10px rgba(255, 0, 255, 0.4),
     1 1 30px rgba(0, 255, 255, 0.2);
-  border-radius: 10px;
-  border: #000000 5px solid;
+  border: #000000 3px solid;
 }
 
 .cell {
   width: 30px;
   height: 30px;
-  background-color: #ffffff;
+  border: 1px solid #ffffff;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.4),
+    inset 0 0 10px rgba(255, 255, 255, 0.05);
+
   transition:
     transform 0.1s ease,
-    background-color 0.2s ease;
+    background-color 0.1s ease;
 }
 
 .restart {
@@ -299,4 +310,92 @@ p {
 .esc {
   width: 80px;
   background: linear-gradient(145deg, #ef4444, #991b1b);
+}
+
+/* ===== Glass Aside ===== */
+
+.liquid-glass-card {
+  position: relative;
+  border-radius: 28px;
+  padding: 20px;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.4),
+    inset 0 0 10px rgba(255, 255, 255, 0.05);
+
+  color: rgb(0, 0, 0);
+}
+
+/* contenu interne */
+.card-content {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Table stylée */
+.liquid-glass-card table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.liquid-glass-card td {
+  padding: 6px 10px;
+  font-size: 16px;
+}
+
+/* Boutons clavier */
+.controls {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.row {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.key {
+  width: 55px;
+  height: 55px;
+  border-radius: 14px;
+  border: none;
+  background: rgba(255, 255, 255, 0.15);
+  color: rgb(0, 0, 0);
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.key:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: translateY(-3px);
+}
+
+.enter {
+  width: 90px;
+  background: rgba(255, 0, 0, 0.15);
+}
+
+.enter:hover {
+  background: rgba(145, 0, 0, 0.3);
+  transform: translateY(-3px);
+}
+
+.esc {
+  width: 70px;
+  background: rgba(0, 255, 34, 0.15);
+}
+
+.esc:hover {
+  background: rgba(0, 145, 20, 0.3);
+  transform: translateY(-3px);
 }
