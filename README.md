@@ -66,10 +66,12 @@ Aucune installation n'est nécessaire.
 ```
 tetris-js
 │
+├── jdt
 ├── index.html
-├── style.css
-├── script.js
-└── img/
+├── ressources
+    ├── style.css
+    ├── script.js
+    └── img/
 ```
 
 ---
