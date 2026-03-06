@@ -38,6 +38,9 @@ Aucune librairie externe n’est utilisée.
 | ⬆️     | rotation de la pièce       |
 | ⬇️     | descente rapide            |
 | ESC    | recommencer la partie      |
+| ENTER    | Regeneration d'un pièce      |
+
+
 
 ---
 
@@ -95,7 +98,6 @@ Plusieurs améliorations peuvent encore être ajoutées :
 * aperçu de la prochaine pièce
 * sauvegarde du meilleur score
 * système de niveaux
-* augmentation progressive de la vitesse
 * effets visuels lors de la suppression de lignes
 * animations avancées
 
