@@ -38,6 +38,9 @@ Aucune librairie externe n’est utilisée.
 | ⬆️     | rotation de la pièce       |
 | ⬇️     | descente rapide            |
 | ESC    | recommencer la partie      |
+| ENTER    | Regeneration d'un pièce      |
+
+
 
 ---
 
