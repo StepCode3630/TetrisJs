@@ -316,7 +316,8 @@ function fixPiece() {
         if (y >= 0 && y < hauteur && x >= 0 && x < largeur)
           logicGrid[y][x] = numRandom; // couleur de la pièce
         const cellIndex = y * largeur + x;
-        cells[cellIndex].classList.add("fix-animation"); // Ajoute une classe pour l'animation de fixation
+        if (cellIndex >= hauteur)
+          cells[cellIndex].classList.add("fix-animation"); // Ajoute une classe pour l'animation de fixation
       }
     }
   }
