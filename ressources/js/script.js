@@ -10,7 +10,7 @@ let score = 0;
 
 let numRotation = 0;
 
-const couleurList = ["red", "blue", "green", "yellow", "purple", "cyan"];
+const couleurList = ["red", "blue", "green", "yellow", "purple", "orange"];
 
 for (let i = 0; i < largeur * hauteur; i++) {
   const cell = document.createElement("div");
@@ -135,48 +135,49 @@ let numRandom = Math.floor(Math.random() * form.length);
 
 const cells = document.querySelectorAll(".cell");
 
-//Bouton
-const restartButton = document.getElementsByClassName("key esc");
-restartButton[0].addEventListener("click", restart);
+document.addEventListener("DOMContentLoaded", () => {
+  const restartButton = document.querySelector(".key.esc");
+  restartButton.addEventListener("click", restart);
 
-const enterButton = document.getElementsByClassName("key enter");
-enterButton[0].addEventListener("click", () => {
-  positionX = numRandomv2;
-  positionY = -1;
-  numRotation = 0;
-  numRandom = Math.floor(Math.random() * form.length);
-  numRandomv2 = Math.floor(Math.random() * (largeur - pieceWidth + 1));
-  render();
-});
+  const enterButton = document.getElementsByClassName("key enter")[0];
+  enterButton.addEventListener("click", () => {
+    positionX = numRandomv2;
+    positionY = -1;
+    numRotation = 0;
+    numRandom = Math.floor(Math.random() * form.length);
+    numRandomv2 = Math.floor(Math.random() * (largeur - pieceWidth + 1));
+    render();
+  });
 
-const upArrowButton = document.getElementById("upArrow");
-upArrowButton.addEventListener("click", () => {
-  rotation();
-  render();
-});
+  const upArrowButton = document.getElementById("upArrow");
+  upArrowButton.addEventListener("click", () => {
+    rotation();
+    render();
+  });
 
-const downArrowButton = document.getElementById("downArrow");
-downArrowButton.addEventListener("click", () => {
-  if (canMoveDown(1)) {
-    positionY++;
-  }
-  render();
-});
+  const downArrowButton = document.getElementById("downArrow");
+  downArrowButton.addEventListener("click", () => {
+    if (canMoveDown(1)) {
+      positionY++;
+    }
+    render();
+  });
 
-const leftArrowButton = document.getElementById("leftArrow");
-leftArrowButton.addEventListener("click", () => {
-  if (canMove(-1)) {
-    positionX--;
-  }
-  render();
-});
+  const leftArrowButton = document.getElementById("leftArrow");
+  leftArrowButton.addEventListener("click", () => {
+    if (canMove(-1)) {
+      positionX--;
+    }
+    render();
+  });
 
-const rightArrowButton = document.getElementById("rightArrow");
-rightArrowButton.addEventListener("click", () => {
-  if (canMove(1)) {
-    positionX++;
-  }
-  render();
+  const rightArrowButton = document.getElementById("rightArrow");
+  rightArrowButton.addEventListener("click", () => {
+    if (canMove(1)) {
+      positionX++;
+    }
+    render();
+  });
 });
 
 let gameInterval = null;
