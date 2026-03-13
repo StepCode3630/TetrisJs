@@ -193,7 +193,8 @@ let positionY = -1;
 function restart() {
   if (gameInterval) clearInterval(gameInterval);
   numRotation = 0;
-  numRandom = Math.floor(Math.random() * 5);
+  score = 0;
+  numRandom = Math.floor(Math.random() * form.length);
   numRandomv2 = Math.floor(Math.random() * (largeur - pieceWidth + 1));
   positionX = numRandomv2;
   positionY = -1;
@@ -460,7 +461,7 @@ document.addEventListener("keydown", function (event) {
       positionX = numRandomv2;
       positionY = -1;
       numRotation = 0;
-      numRandom = Math.floor(Math.random() * 5);
+      numRandom = Math.floor(Math.random() * form.length);
       numRandomv2 = Math.floor(Math.random() * (largeur - pieceWidth + 1));
       break;
   }
