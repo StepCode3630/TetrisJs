@@ -182,8 +182,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
 let gameInterval = null;
 
-const shape = form[numRandom][numRotation];
-const pieceWidth = shape[0].length;
+let shape = form[numRandom][numRotation];
+let pieceWidth = shape[0].length;
 
 //Nombre random entre 1 inclus et largeur - piece largeur
 let numRandomv2 = Math.floor(Math.random() * (largeur - pieceWidth + 2));
@@ -295,12 +295,31 @@ function moveDown() {
     fixPiece();
     gameOver();
     checkLines();
+    render(); // Afficher l'état après suppression des lignes
 
+    // Générer une nouvelle pièce
     numRandom = Math.floor(Math.random() * form.length);
+    const newShape = form[numRandom][0];
+    pieceWidth = newShape[0].length;
     numRandomv2 = Math.floor(Math.random() * (largeur - pieceWidth + 1));
     positionX = numRandomv2;
     positionY = -1;
     numRotation = 0;
+
+    // Vérifier si la nouvelle pièce peut être placée (sinon, game over)
+    if (!canMoveDown()) {
+      clearInterval(gameInterval);
+      gameInterval = null;
+      alert("Game Over - Impossible de placer la pièce !");
+      restart();
+      return;
+    }
+
+    // Faire descendre immédiatement si possible pour éviter le délai
+    if (canMoveDown()) {
+      positionY++;
+    }
+
     render();
   }
 }
@@ -374,19 +393,24 @@ if (!gameInterval) gameInterval = setInterval(moveDown, 600);
 
 function checkLines() {
   let lignesSupprimees = 0;
+  const newGrid = [];
 
+  // Parcourir de bas en haut et copier seulement les lignes non pleines
   for (let i = hauteur - 1; i >= 0; i--) {
-    if (logicGrid[i].every((cell) => cell !== 0)) {
-      const rowCells = document.querySelectorAll(
-        `.cell:nth-child(n + ${i * largeur + 1}):nth-child(-n + ${(i + 1) * largeur})`,
-      );
-      logicGrid.splice(i, 1);
-      logicGrid.unshift(new Array(largeur).fill(0));
-
+    if (!logicGrid[i].every((cell) => cell !== 0)) {
+      newGrid.unshift(logicGrid[i]); // Ajouter au début de la nouvelle grille
+    } else {
       lignesSupprimees++;
-      i++;
     }
   }
+
+  // Remplir le haut avec des lignes vides si nécessaire
+  while (newGrid.length < hauteur) {
+    newGrid.unshift(new Array(largeur).fill(0));
+  }
+
+  // Remplacer la grille logique
+  logicGrid = newGrid;
 
   if (lignesSupprimees > 0) {
     score += 1 * lignesSupprimees;
