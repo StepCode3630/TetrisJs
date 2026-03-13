@@ -468,3 +468,54 @@ document.addEventListener("keydown", function (event) {
       break;
   }
 });
+
+let startX = 0;
+let startY = 0;
+
+document.addEventListener("touchstart", function (e) {
+  startX = e.touches[0].clientX;
+  startY = e.touches[0].clientY;
+});
+
+document.addEventListener("touchend", function (e) {
+  let endX = e.changedTouches[0].clientX;
+  let endY = e.changedTouches[0].clientY;
+
+  let diffX = endX - startX;
+  let diffY = endY - startY;
+
+  // distance minimum pour considérer un swipe
+  const seuil = 50; // augmenté pour éviter les faux swipes
+
+  // Déterminer la direction principale du swipe
+  if (Math.abs(diffX) > Math.abs(diffY)) {
+    // Swipe horizontal
+    if (Math.abs(diffX) > seuil) {
+      if (diffX > 0) {
+        // swipe droite
+        if (canMove(1)) {
+          positionX++;
+          render();
+        }
+      } else {
+        // swipe gauche
+        if (canMove(-1)) {
+          positionX--;
+          render();
+        }
+      }
+    }
+  } else {
+    // Swipe vertical
+    if (Math.abs(diffY) > seuil) {
+      if (diffY > 0) {
+        // swipe bas : descendre rapidement
+        moveDown();
+      } else {
+        // swipe haut : rotation
+        rotation();
+        render();
+      }
+    }
+  }
+});
