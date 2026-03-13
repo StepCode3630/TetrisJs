@@ -366,19 +366,27 @@ function canMove(dx) {
   return true;
 }
 
-function canRotate() {
-  const carré = form[numRandom][numRotation];
-  //Ligne
-  for (let i = 0; i < carré.length; i++) {
-    //Colonne
-    for (let j = 0; j < carré[i].length; j++) {
-      if (carré[i][j] === 1) {
-        if (positionX + j >= largeur || positionX + j < 0) return false;
-        if (positionY + i >= hauteur || positionY + i < 0) return false;
-        if (logicGrid[positionY + i][positionX + j] !== 0) return false;
+function canRotate(nextRotation) {
+  const nextShape = form[numRandom][nextRotation];
+
+  for (let i = 0; i < nextShape.length; i++) {
+    for (let j = 0; j < nextShape[i].length; j++) {
+      if (nextShape[i][j] === 1) {
+        const x = positionX + j;
+        const y = positionY + i;
+
+        // Vérifier les limites horizontales
+        if (x < 0 || x >= largeur) return false;
+
+        // Vérifier les limites verticales (autoriser y < 0 pour pièces partiellement au-dessus)
+        if (y >= hauteur) return false;
+
+        // Vérifier les collisions avec les pièces posées (seulement si y >= 0)
+        if (y >= 0 && logicGrid[y][x] !== 0) return false;
       }
     }
   }
+
   return true;
 }
 
